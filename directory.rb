@@ -72,24 +72,28 @@ def print_under_12(students)
 end
 
 def print_by_cohort(students, cohorts)
-  puts "These are the students of Villains Academy, grouped by their cohort:".center(80)
-  iterator = 0
-  student_counter = 1
-  while iterator <= cohorts.length
-    students.each do |student|
-      if student[:cohort] == cohorts[iterator]
-        puts "#{student_counter}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
-        student_counter += 1
+  if students.length > 0
+    puts "These are the students of Villains Academy, grouped by their cohort:".center(80)
+    iterator = 0
+    student_counter = 1
+    while iterator <= cohorts.length
+      students.each do |student|
+        if student[:cohort] == cohorts[iterator]
+          puts "#{student_counter}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
+          student_counter += 1
+        end
       end
+      iterator += 1
     end
-    iterator += 1
+  else
+    puts "Sorry, you did not add any students to Villains Academy, so there is no list to print!"
   end
 end
 
 def print_footer(students)
   if students.count == 1
     puts "Overall, we have #{students.count} great student"
-  else
+  elsif students.count > 1
     puts "Overall, we have #{students.count} great students"
   end
 end
