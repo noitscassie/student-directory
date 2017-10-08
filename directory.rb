@@ -19,20 +19,20 @@ def input_students cohorts
   #empty array into which we will save the newly inputted students
   students = []
   #getting the first name to add
-  name = gets.strip
+  name = gets.chomp
   #code to repeat whilst the name is not empty
   while !name.empty? do
     puts "And what cohort are they in?"
-    cohort = gets.strip
+    cohort = gets.chomp
     while !(cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
-      cohort = gets.strip
+      cohort = gets.chomp
     end
     students << {name: name, cohort: cohort.downcase.to_sym}
     #add the student has to the array
     puts "Now we have #{students.count} students"
     #get another name from the user
-    name = gets.strip
+    name = gets.chomp
   end
   #return the array of students
   students
