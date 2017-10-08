@@ -44,30 +44,42 @@ def print_header
 end
 
 def print(students)
-  counter = 0
-  while counter < students.length do
-    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}).".center(80)
-    counter += 1
+  if students.length > 1
+    counter = 0
+    while counter < students.length do
+      puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}).".center(80)
+      counter += 1
+    end
+  else
+    puts "Sorry, you did not add any students to Villains Academy, so there is no list to print!"
   end
 end
 
 def print_with_letter(students)
-  puts "Which letter would you like to choose to see students whose name begins with that letter?"
-  letter = gets.chomp.upcase!
-  puts "Those students whose names begin with \"#{letter}\" are: "
-  students.each_with_index do |student, index|
-    if student[:name].to_s[0] == letter || student[:name].to_s[0].downcase == letter
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  if students.length > 1
+    puts "Which letter would you like to choose to see students whose name begins with that letter?"
+    letter = gets.chomp.upcase!
+    puts "Those students whose names begin with \"#{letter}\" are: "
+    students.each_with_index do |student, index|
+      if student[:name].to_s[0] == letter || student[:name].to_s[0].downcase == letter
+        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      end
     end
+  else
+    puts "Sorry, you did not add any students to Villains Academy, so there is no list to print!"
   end
 end
 
 def print_under_12(students)
-  puts "Those students whose names are shorter than 12 characters are..."
-  students.each_with_index do |student, index|
-    if student[:name].to_s.length < 12
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  if students.length > 0
+    puts "Those students whose names are shorter than 12 characters are..."
+    students.each_with_index do |student, index|
+      if student[:name].to_s.length < 12
+        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      end
     end
+  else
+    puts "Sorry, you did not add any students to Villains Academy, so there is no list to print!"
   end
 end
 
