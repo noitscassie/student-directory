@@ -24,6 +24,17 @@ def print(students)
   end
 end
 
+def print_with_letter(students)
+  puts "Which letter would you like to choose to see students whose name begins with that letter?"
+  letter = gets.chomp.upcase!
+  puts "Those students whose names begin with \"#{letter}\" are: "
+  students.each_with_index do |student, index|
+    if student[:name].to_s[0] == letter || student[:name].to_s[0].downcase == letter
+      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
@@ -50,5 +61,5 @@ end
 #nothing happens until we call the methods
 students = input_students
 print_header
-print(students)
+print_with_letter(students)
 print_footer(students)
