@@ -19,20 +19,20 @@ def input_students cohorts
   #empty array into which we will save the newly inputted students
   students = []
   #getting the first name to add
-  name = gets.chomp
+  name = gets.strip
   #code to repeat whilst the name is not empty
   while !name.empty? do
     puts "And what cohort are they in?"
-    cohort = gets.chomp
+    cohort = gets.strip
     while !(cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
-      cohort = gets.chomp
+      cohort = gets.strip
     end
     students << {name: name, cohort: cohort.downcase.to_sym}
     #add the student has to the array
     puts "Now we have #{students.count} students"
     #get another name from the user
-    name = gets.chomp
+    name = gets.strip
   end
   #return the array of students
   students
@@ -73,14 +73,16 @@ end
 
 def print_by_cohort(students, cohorts)
   puts "These are the students of Villains Academy, grouped by their cohort:".center(80)
-  counter = 0
-  while counter <= cohorts.length
+  iterator = 0
+  student_counter = 1
+  while iterator <= cohorts.length
     students.each do |student|
-      if student[:cohort] == cohorts[counter]
-        puts "#{students.index(student) + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
+      if student[:cohort] == cohorts[iterator]
+        puts "#{student_counter}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
+        student_counter += 1
       end
     end
-    counter += 1
+    iterator += 1
   end
 end
 
