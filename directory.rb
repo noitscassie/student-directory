@@ -39,14 +39,14 @@ def input_students cohorts
 end
 
 def print_header
-  puts "The students of Villains Academy".center(50)
-  puts "-------------".center(50)
+  puts "The students of Villains Academy".center(80)
+  puts "-------------".center(80)
 end
 
 def print(students)
   counter = 0
   while counter < students.length do
-    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}).".center(50)
+    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}).".center(80)
     counter += 1
   end
 end
@@ -72,12 +72,12 @@ def print_under_12(students)
 end
 
 def print_by_cohort(students, cohorts)
-  puts "These are the students of Villains Academy, grouped by their cohort:".center(100)
+  puts "These are the students of Villains Academy, grouped by their cohort:".center(80)
   counter = 0
   while counter <= cohorts.length
     students.each do |student|
       if student[:cohort] == cohorts[counter]
-        puts "#{counter + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+        puts "#{students.index(student) + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
       end
     end
     counter += 1
@@ -85,7 +85,11 @@ def print_by_cohort(students, cohorts)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.count == 1
+    puts "Overall, we have #{students.count} great student"
+  else
+    puts "Overall, we have #{students.count} great students"
+  end
 end
 
 #nothing happens until we call the methods
