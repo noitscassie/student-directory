@@ -1,4 +1,18 @@
 def input_students
+  possible_cohorts = [
+    :january,
+    :february,
+    :march,
+    :april,
+    :may,
+    :june,
+    :july,
+    :august,
+    :september,
+    :october,
+    :november,
+    :december
+  ]
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #empty array into which we will save the newly inputted students
@@ -7,8 +21,14 @@ def input_students
   name = gets.chomp
   #code to repeat whilst the name is not empty
   while !name.empty? do
+    puts "And what cohort are they in?"
+    cohort = gets.chomp
+    while !(possible_cohorts.include? cohort.downcase.to_sym)
+      puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
+      cohort = gets.chomp
+    end
+    students << {name: name, cohort: cohort.downcase.to_sym}
     #add the student has to the array
-    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
