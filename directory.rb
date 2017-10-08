@@ -35,12 +35,21 @@ def print_with_letter(students)
   end
 end
 
+def print_under_12(students)
+  puts "Those students whose names are shorter than 12 characters are..."
+  students.each_with_index do |student, index|
+    if student[:name].to_s.length < 12
+      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
 def input_students
-  puts "Please enter tha names of the students"
+  puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #empty array into which we will save the newly inputted students
   students = []
@@ -61,5 +70,5 @@ end
 #nothing happens until we call the methods
 students = input_students
 print_header
-print_with_letter(students)
+print_under_12(students)
 print_footer(students)
