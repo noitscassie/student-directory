@@ -31,7 +31,7 @@ end
 def print(students)
   counter = 0
   while counter < students.length do
-    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}). #{students[counter][:name]} was born in #{students[counter][:birth_country]}, is #{students[counter][:height]} centimetres tall, and their favourite hobby is #{students[counter][:hobby].downcase}."
+    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}).".center(50)
     counter += 1
   end
 end
