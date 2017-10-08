@@ -1,17 +1,6 @@
-possible_cohorts = [
-  :january,
-  :february,
-  :march,
-  :april,
-  :may,
-  :june,
-  :july,
-  :august,
-  :september,
-  :october,
-  :november,
-  :december
-]
+
+
+#writing the method to input students
 
 def input_students cohorts
   puts "Please enter the names of the students"
@@ -37,6 +26,9 @@ def input_students cohorts
   #return the array of students
   students
 end
+
+
+#writing various printing methods
 
 def print_header
   puts "The students of Villains Academy".center(80)
@@ -110,8 +102,48 @@ def print_footer(students)
   end
 end
 
-#nothing happens until we call the methods
-students = input_students(possible_cohorts)
-print_header
-print_by_cohort(students, possible_cohorts)
-print_footer(students)
+#writing the method for the interactive menu
+
+def interactive_menu
+  #adding arrays for students (empty to begin with) and hardcoding array of symbols for different cohorts
+  possible_cohorts = [
+    :january,
+    :february,
+    :march,
+    :april,
+    :may,
+    :june,
+    :july,
+    :august,
+    :september,
+    :october,
+    :november,
+    :december
+  ]
+  students = []
+  loop do
+    #1. print the menu and ask the user what they want to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    #2. read the input and save it into a variable
+    selection = gets.chomp
+    #3. do what the user asked
+    case selection
+    when "1"
+      #input the students
+      students = input_students(possible_cohorts)
+    when "2"
+      #show the students
+      print_header
+      print_by_cohort(students, possible_cohorts)
+      print_footer(students)
+    when "9"
+      exit #this will cause the program to terminate
+    else
+      puts "I don't know what you meant, please try again"
+    end
+  end
+end
+
+interactive_menu
