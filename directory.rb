@@ -1,18 +1,19 @@
-def input_students
-  possible_cohorts = [
-    :january,
-    :february,
-    :march,
-    :april,
-    :may,
-    :june,
-    :july,
-    :august,
-    :september,
-    :october,
-    :november,
-    :december
-  ]
+possible_cohorts = [
+  :january,
+  :february,
+  :march,
+  :april,
+  :may,
+  :june,
+  :july,
+  :august,
+  :september,
+  :october,
+  :november,
+  :december
+]
+
+def input_students cohorts
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #empty array into which we will save the newly inputted students
@@ -23,7 +24,7 @@ def input_students
   while !name.empty? do
     puts "And what cohort are they in?"
     cohort = gets.chomp
-    while !(possible_cohorts.include? cohort.downcase.to_sym)
+    while !(cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
       cohort = gets.chomp
     end
@@ -38,8 +39,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(50)
+  puts "-------------".center(50)
 end
 
 def print(students)
@@ -70,12 +71,25 @@ def print_under_12(students)
   end
 end
 
+def print_by_cohort(students, cohorts)
+  puts "These are the students of Villains Academy, grouped by their cohort:".center(100)
+  counter = 0
+  while counter <= cohorts.length
+    students.each do |student|
+      if student[:cohort] == cohorts[counter]
+        puts "#{counter + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+      end
+    end
+    counter += 1
+  end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
 #nothing happens until we call the methods
-students = input_students
+students = input_students(possible_cohorts)
 print_header
-print(students)
+print_by_cohort(students, possible_cohorts)
 print_footer(students)
