@@ -7,8 +7,14 @@ def input_students
   name = gets.chomp
   #code to repeat whilst the name is not empty
   while !name.empty? do
+    puts "Where were you born?"
+    birth_country = gets.chomp
+    puts "How tall are you? (cm)"
+    height = gets.chomp
+    puts "And what is your favourite hobby?"
+    hobby = gets.chomp
     #add the student has to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, birth_country: birth_country, height: height, hobby: hobby}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
@@ -25,7 +31,7 @@ end
 def print(students)
   counter = 0
   while counter < students.length do
-    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]})"
+    puts "#{counter + 1}. #{students[counter][:name]} (#{students[counter][:cohort]}). #{students[counter][:name]} was born in #{students[counter][:birth_country]}, is #{students[counter][:height]} centimetres tall, and their favourite hobby is #{students[counter][:hobby].downcase}."
     counter += 1
   end
 end
