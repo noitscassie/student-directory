@@ -23,20 +23,20 @@ def input_students
   puts "To finish, just hit return twice"
   #empty array into which we will save the newly inputted students
   #getting the first name to add
-  name = gets.chomp
+  name = STDIN.gets.chomp
   #code to repeat whilst the name is not empty
   while !name.empty? do
     puts "And what cohort are they in?"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     while !(@possible_cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
-      cohort = gets.chomp
+      cohort = STDIN.gets.chomp
     end
     @students << {name: name, cohort: cohort.downcase.to_sym}
     #add the student has to the array
     puts "Now we have #{@students.count} students"
     #get another name fcohortsrom the user
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   #return the array of students
   @students
@@ -65,7 +65,7 @@ end
 def print_with_letter
   if @students.length > 1
     puts "Which letter would you like to choose to see students whose name begins with that letter?"
-    letter = gets.chomp.upcase!
+    letter = STDIN.gets.chomp.upcase!
     puts "Those students whose names begin with \"#{letter}\" are: "
     @students.each_with_index do |student, index|
       if student[:name].to_s[0] == letter || student[:name].to_s[0].downcase == letter
@@ -160,18 +160,31 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("filename", "r")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+      @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count / 2} students from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 def interactive_menu
   loop do
+    try_load_students
     print_menu
-    process gets.chomp
+    process STDIN.gets.chomp
   end
 end
 
