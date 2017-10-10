@@ -22,6 +22,7 @@
   "Exit"
 ]
 
+#Adding in the CSV libraries
 require 'csv'
 
 #Top-level menu method
@@ -140,7 +141,6 @@ end
 def save_students
   puts "Where would you like to save the students to?"
   CSV.open(STDIN.gets.chomp, "w") do |f|
-  #file = File.open(STDIN.gets.chomp, "w") do |f|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
       csv_line = student_data
@@ -158,6 +158,7 @@ def load_students
     puts "Sorry, that file does not exist. Loading students from default file: students.csv"
   end
   file = File.open(user_file, "r") do |f|
+    @students = []
     CSV.foreach(f) do |line|
       name, cohort = line[0], line[1]
       add_student(name, cohort)
