@@ -49,6 +49,11 @@ def print_menu
   @menu_options.each_with_index do |option, index|
     puts "#{index + 1}. #{option}"
   end
+#  puts "1. Input the students"
+#  puts "2. Show the students"
+#  puts "3. Save the list to students.csv"
+#  puts "4. Load the list from students.csv"
+#  puts "9. Exit"
 end
 
 #Method to execute the user's choice of action
@@ -73,10 +78,7 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  #empty array into which we will save the newly inputted students
-  #getting the first name to add
   name = STDIN.gets.chomp
-  #code to repeat whilst the name is not empty
   while !name.empty? do
     puts "And what cohort are they in?"
     cohort = STDIN.gets.chomp
@@ -85,12 +87,9 @@ def input_students
       cohort = STDIN.gets.chomp
     end
     add_student(name, cohort)
-    #add the student has to the array
     puts "Now we have #{@students.count} students"
-    #get another name fcohortsrom the user
     name = STDIN.gets.chomp
   end
-  #return the array of students
   @students
 end
 
