@@ -28,6 +28,7 @@ def interactive_menu
   loop do
     print_menu
     process STDIN.gets.chomp
+    puts "Congratulations, your choice was successfully carried out."
   end
 end
 
