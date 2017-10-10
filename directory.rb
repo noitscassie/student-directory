@@ -1,4 +1,4 @@
-#hDeclaring global variables of possible cohorts and empty array of students
+#Declaring global variables of possible cohorts and empty array of students
 @possible_cohorts = [
   :january,
   :february,
@@ -14,6 +14,13 @@
   :december
 ]
 @students = []
+@menu_options = [
+  "Input the students",
+  "Show the students",
+  "Save the list of students to students.csv",
+  "Load the list of students from students.csv",
+  "Exit"
+]
 
 #Top-level menu method
 def interactive_menu
@@ -28,11 +35,9 @@ end
 def try_load_students
   filename = ARGV.first
   if filename.nil?
-    load_students("students.csv")
-    puts "Loaded #{@students.count} students from students.csv"
+    load_students
   elsif File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} students from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
@@ -41,11 +46,9 @@ end
 
 #Method to print the menu
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  @menu_options.each_with_index do |option, index|
+    puts "#{index + 1}. #{option}"
+  end
 end
 
 #Method to execute the user's choice of action
@@ -59,7 +62,7 @@ def process(selection)
     save_students
   when "4"
     load_students
-  when "9"
+  when "5"
     exit
   else
     puts "I don't know what you meant, please try again"
@@ -147,6 +150,7 @@ def load_students(filename = "students.csv")
     name, cohort = line.chomp.split(",")
     add_student(name, cohort)
   end
+  puts "Loaded #{@students.count} students from #{filename}"
   file.close
 end
 
