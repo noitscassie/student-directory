@@ -32,11 +32,10 @@ def interactive_menu
   loop do
     print_menu
     process STDIN.gets.chomp
-    puts "Congratulations, your choice was successfully carried out."
   end
 end
 
-#Method to load a list of students passed in as an argument on the command line
+#Method to load a list of students passed method_namein as an argument on the command line
 def try_load_students
   filename = ARGV.first
   if filename.nil?
@@ -51,15 +50,14 @@ end
 
 #Method to print the menu
 def print_menu
-  @menu_options.each_with_index do |option, index|
-    puts "#{index + 1}. #{option[0]}"
-  end
+  @menu_options.each_with_index { |option, index| puts "#{index + 1}. #{option[0]}" }
 end
 
 #Method to execute the user's choice of action
 def process(selection)
-  if selection.to_i <= @menu_options.length
+  if selection.to_i <= @menu_options.length && selection.to_i > 0
     @menu_options[selection.to_i - 1][1].call
+    puts "Congratulations, your choice was successfully carried out."
   else
     puts "I don't know what you meant, please try again"
   end
@@ -71,7 +69,7 @@ def input_students
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp
   while !name.empty? do
-    puts "And what cohort are they in?"
+    puts "And what cohort are tzhey in?"
     cohort = STDIN.gets.chomp
     while !(@possible_cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
