@@ -15,11 +15,11 @@
 ]
 @students = []
 @menu_options = [
-  "Input the students",
-  "Show the students",
-  "Save the list of students",
-  "Load the list of students",
-  "Exit"
+  ["Input the students", Proc.new{@students = input_students}],
+  ["Show the students", Proc.new{show_students}],
+  ["Save the list of students", Proc.new{save_students}],
+  ["Load the list of students", Proc.new{load_students}],
+  ["Exit", Proc.new{exit}]
 ]
 
 #Adding in the CSV libraries
@@ -52,17 +52,22 @@ end
 #Method to print the menu
 def print_menu
   @menu_options.each_with_index do |option, index|
-    puts "#{index + 1}. #{option}"
+    puts "#{index + 1}. #{option[0]}"
   end
 end
 
 #Method to execute the user's choice of action
 def process(selection)
+#  if selection.to_i < @menu_options.length
+#    @menu_options[(selection.to_i) - 1][1]
+#  else
+#    puts "I don't know what you meant, please try again"
+#  end
   case selection
   when "1"
     @students = input_students
   when "2"
-    show_students
+    @menu_options[1][1]
   when "3"
     save_students
   when "4"
@@ -137,7 +142,7 @@ def save_students
   write_to_csv(STDIN.gets.chomp)
 end
 
-#Method to write data to a CSV file 
+#Method to write data to a CSV file
 def write_to_csv file
   CSV.open(file, "w") do |f|
     @students.each do |student|
