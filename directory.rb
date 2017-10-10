@@ -157,7 +157,12 @@ def load_students
     user_file = "students.csv"
     puts "Sorry, that file does not exist. Loading students from default file: students.csv"
   end
-  file = File.open(user_file, "r") do |f|
+  csv_to_array(user_file)
+end
+
+#Method to load a CSV file of students and cohorts and add each line to a new array
+def csv_to_array csv_file
+  file = File.open(csv_file, "r") do |f|
     @students = []
     CSV.foreach(f) do |line|
       name, cohort = line[0], line[1]
