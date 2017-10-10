@@ -79,7 +79,7 @@ def input_students
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
       cohort = STDIN.gets.chomp
     end
-    @students << {name: name, cohort: cohort.downcase.to_sym}
+    add_student(name, cohort)
     #add the student has to the array
     puts "Now we have #{@students.count} students"
     #get another name fcohortsrom the user
@@ -143,7 +143,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    add_student(name, cohort)
   end
   file.close
 end
@@ -185,6 +185,11 @@ def print_under_12
   else
     puts "Sorry, you did not add any students to Villains Academy, so there is no list to print!"
   end
+end
+
+#Method to add a student to the array - either from user input or a loaded file
+def add_student(name, cohort)
+  @students << {name: name, cohort: cohort.downcase.to_sym}
 end
 
 
