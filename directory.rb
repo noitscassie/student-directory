@@ -137,13 +137,13 @@ end
 #Method to allow the user to save new students added to a .csv file
 def save_students
   puts "Where would you like to save the students to?"
-  file = File.open(STDIN.gets.chomp, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  file = File.open(STDIN.gets.chomp, "w") do |f|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      f.puts csv_line
+    end
   end
-  file.close
 end
 
 #Method to allow the user to load a list of students
@@ -154,13 +154,13 @@ def load_students
     user_file = "students.csv"
     puts "Sorry, that file does not exist. Loading students from default file: students.csv"
   end
-  file = File.open(user_file, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_student(name, cohort)
+  file = File.open(user_file, "r") do |f|
+    f.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      add_student(name, cohort)
+    end
+    puts "Loaded #{@students.count} students from #{f}"
   end
-  puts "Loaded #{@students.count} students from #{file}"
-  file.close
 end
 
 #Alternative printing methods
