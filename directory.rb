@@ -27,8 +27,10 @@ end
 #Method to load a list of students passed in as an argument on the command line
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exists?(filename)
+  if filename.nil?
+    load_students("students.csv")
+    puts "Loaded #{@students.count} students from students.csv"
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} students from #{filename}"
   else
@@ -187,7 +189,7 @@ def print_under_12
   end
 end
 
-#Method to add a student to the array - either from user input or a loaded file
+#Helper method to add a student to the array - either from user input or a loaded file
 def add_student(name, cohort)
   @students << {name: name, cohort: cohort.downcase.to_sym}
 end
