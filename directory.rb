@@ -17,8 +17,8 @@
 
 #Top-level menu method
 def interactive_menu
+  try_load_students
   loop do
-    try_load_students
     print_menu
     process STDIN.gets.chomp
   end
@@ -30,7 +30,7 @@ def try_load_students
   return if filename.nil?
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count / 2} students from #{filename}"
+    puts "Loaded #{@students.count} students from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
