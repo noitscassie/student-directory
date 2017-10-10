@@ -28,7 +28,6 @@ require 'csv'
 #Top-level menu method
 def interactive_menu
   puts "Loading program..."
-  sleep(2)
   try_load_students
   loop do
     print_menu
@@ -55,11 +54,6 @@ def print_menu
   @menu_options.each_with_index do |option, index|
     puts "#{index + 1}. #{option}"
   end
-#  puts "1. Input the students"
-#  puts "2. Show the students"
-#  puts "3. Save the list to students.csv"
-#  puts "4. Load the list from students.csv"
-#  puts "9. Exit"
 end
 
 #Method to execute the user's choice of action
@@ -140,7 +134,12 @@ end
 #Method to allow the user to save new students added to a .csv file
 def save_students
   puts "Where would you like to save the students to?"
-  CSV.open(STDIN.gets.chomp, "w") do |f|
+  write_to_csv(STDIN.gets.chomp)
+end
+
+#Method to write data to a CSV file 
+def write_to_csv file
+  CSV.open(file, "w") do |f|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
       csv_line = student_data
@@ -160,7 +159,7 @@ def load_students
   csv_to_array(user_file)
 end
 
-#Method to load a CSV file of students and cohorts and add each line to a new array
+#Method to load a CSV file of students ausernd cohorts and add each line to a new array
 def csv_to_array csv_file
   file = File.open(csv_file, "r") do |f|
     @students = []
