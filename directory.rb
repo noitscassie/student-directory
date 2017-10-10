@@ -211,6 +211,11 @@ def add_student(name, cohort)
   @students << {name: name, cohort: cohort.downcase.to_sym}
 end
 
+#Method to display own source code
+def print_source_code
+  $><<IO.read($0)
+end
+
 
 #Executing the code
 interactive_menu
