@@ -19,6 +19,8 @@
   ["Show the students", Proc.new{show_students}],
   ["Save the list of students", Proc.new{save_students}],
   ["Load the list of students", Proc.new{load_students}],
+  ["Edit a student", Proc.new{edit_student}],
+  ["Remove a student", Proc.new{remove_student}],
   ["Exit", Proc.new{exit}]
 ]
 
@@ -158,6 +160,25 @@ def csv_to_array csv_file
       add_student(name, cohort)
     end
   end
+end
+
+#Method to allow the user to edit a student's name or cohort
+def edit_student
+  puts "Which student would you like to edit?"
+end
+
+#Method to allow the user to remove a student from the directory
+def remove_student
+  print_by_cohort
+  puts "Which student would you like to remove? Please type in that student's number from the list above"
+  student_to_remove = STDIN.gets.chomp
+  loop do
+    break if student_to_remove.to_i > 0 && student_to_remove.to_i <= @students.length
+    puts "Sorry, I'm not sure what you meant by that. Please type in the number of the student you wish to delete"
+    student_to_remove = STDIN.gets.chomp
+  end
+  @students.delete_at((student_to_remove.to_i) - 1)
+  puts "Student deleted!"
 end
 
 #Alternative printing methods
