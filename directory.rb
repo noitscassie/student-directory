@@ -58,22 +58,8 @@ end
 
 #Method to execute the user's choice of action
 def process(selection)
-#  if selection.to_i < @menu_options.length
-#    @menu_options[(selection.to_i) - 1][1]
-#  else
-#    puts "I don't know what you meant, please try again"
-#  end
-  case selection
-  when "1"
-    @students = input_students
-  when "2"
-    @menu_options[1][1]
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "5"
-    exit
+  if selection.to_i <= @menu_options.length
+    @menu_options[selection.to_i - 1][1].call
   else
     puts "I don't know what you meant, please try again"
   end
@@ -162,6 +148,7 @@ def load_students
     puts "Sorry, that file does not exist. Loading students from default file: students.csv"
   end
   csv_to_array(user_file)
+  puts "Loaded #{@students.count} students from #{user_file}"
 end
 
 #Method to load a CSV file of students ausernd cohorts and add each line to a new array
@@ -172,7 +159,6 @@ def csv_to_array csv_file
       name, cohort = line[0], line[1]
       add_student(name, cohort)
     end
-    puts "Loaded #{@students.count} students from #{f}"
   end
 end
 
