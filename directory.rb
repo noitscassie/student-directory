@@ -17,13 +17,15 @@
 @menu_options = [
   "Input the students",
   "Show the students",
-  "Save the list of students to students.csv",
-  "Load the list of students from students.csv",
+  "Save the list of students",
+  "Load the list of students",
   "Exit"
 ]
 
 #Top-level menu method
 def interactive_menu
+  puts "Loading program..."
+  sleep(2)
   try_load_students
   loop do
     print_menu
@@ -134,7 +136,8 @@ end
 
 #Method to allow the user to save new students added to a .csv file
 def save_students
-  file = File.open("students.csv", "w")
+  puts "Where would you like to save the students to?"
+  file = File.open(STDIN.gets.chomp, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -144,13 +147,19 @@ def save_students
 end
 
 #Method to allow the user to load a list of students
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def load_students
+  puts "Which file would you like to load students from?"
+  user_file = STDIN.gets.chomp
+  if !File.exist?(user_file)
+    user_file = "students.csv"
+    puts "Sorry, that file does not exist. Loading students from default file: students.csv"
+  end
+  file = File.open(user_file, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_student(name, cohort)
   end
-  puts "Loaded #{@students.count} students from #{filename}"
+  puts "Loaded #{@students.count} students from #{file}"
   file.close
 end
 
