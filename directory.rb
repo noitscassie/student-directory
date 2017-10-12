@@ -167,15 +167,6 @@ def edit_student
   puts "Which student would you like to edit?"
 end
 
-#Method to allow the user to remove a student from the directory
-def remove_student
-  print_by_cohort
-  puts "Which student would you like to remove? Please type in that student's name"
-  student_to_remove = check
-  @students.delete_if {|student| student.fetch(:name) == student_to_remove}
-  puts "#{student_to_remove} has been deleted from the directory!"
-end
-
 #Method to check if a student exists in the directory
 def check
   student = STDIN.gets.chomp
@@ -188,6 +179,55 @@ def check
     student = STDIN.gets.chomp
   end
   return student
+end
+
+#Method to allow the user to remove a student from the directory
+def remove_student
+  print_by_cohort
+  puts "Which student would you like to remove? Please type in that student's name from the list above"
+  student_to_remove = check
+  @students.delete_if {|student| student.fetch(:name) == student_to_remove}
+  puts "#{student_to_remove} has been deleted from the directory!"
+end
+
+#Method to allow the user to edit a student in the directory
+def edit_student
+  print_by_cohort
+  puts "Which student would you like to edit? Please type in that student's name from the list above"
+  student_to_edit = check
+  puts "Selected #{student_to_edit}"
+  puts "Would you like to edit their name or their cohort?"
+  puts "Enter 1 to edit their name, and 2 to edit their cohort"
+  user_choice = STDIN.gets.chomp
+  loop do
+    if user_choice.to_i == 1
+      edit_name student_to_edit
+      break
+    elsif user_choice.to_i == 2
+      edit_cohort student_to_edit
+      break
+    else
+      puts "Sorry, that was not a valid selection. Enter 1 to edit a student's name, and 2 to edit their cohort"
+      user_choice = STDIN.gets.chomp
+    end
+  end
+end
+
+#Method to edit a student's name
+def edit_name name
+  to_edit = @students.select { |s| s[:name] == name}
+  puts "And what would you like to rename this student to?"
+  new_name = STDIN.gets.chomp
+  to_edit = to_edit[0]
+#  puts to_edit.class
+#  puts to_edit
+  to_edit[:name] = new_name
+  puts "Success! #{name}'s name has been updated to #{new_name}'"
+end
+
+#Method to edit a student's cohort
+def edit_cohort student
+
 end
 
 #Alternative printing methods
