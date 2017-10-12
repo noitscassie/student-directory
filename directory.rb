@@ -171,17 +171,23 @@ end
 def remove_student
   print_by_cohort
   puts "Which student would you like to remove? Please type in that student's name"
-  student_to_remove = STDIN.gets.chomp
+  student_to_remove = check
+  @students.delete_if {|student| student.fetch(:name) == student_to_remove}
+  puts "#{student_to_remove} has been deleted from the directory!"
+end
+
+#Method to check if a student exists in the directory
+def check
+  student = STDIN.gets.chomp
   loop do
-    if !(@students.any? { |student| student[:name] == student_to_remove})
-      puts "Sorry, #{student_to_remove} is not in the directory. Please re-enter the name of the student you would like to remove"
+    if !(@students.any? { |s| s[:name] == student})
+      puts "Sorry, #{student} is not in the directory. Please re-enter the name of the student"
     else
       break
     end
-    student_to_remove = STDIN.gets.chomp
+    student = STDIN.gets.chomp
   end
-  @students.delete_if {|student| student.fetch(:name) == student_to_remove}
-  puts "#{student_to_remove} has been deleted from the directory!"
+  return student
 end
 
 #Alternative printing methods
