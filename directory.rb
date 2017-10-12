@@ -219,15 +219,18 @@ def edit_name name
   puts "And what would you like to rename this student to?"
   new_name = STDIN.gets.chomp
   to_edit = to_edit[0]
-#  puts to_edit.class
-#  puts to_edit
   to_edit[:name] = new_name
-  puts "Success! #{name}'s name has been updated to #{new_name}'"
+  puts "Success! #{name}'s name has been updated to #{new_name}"
 end
 
 #Method to edit a student's cohort
-def edit_cohort student
-
+def edit_cohort name
+  to_edit = @students.select { |s| s[:name] == name}
+  puts "And what which cohort would you like to change this student to? Please type enter the name of a month"
+  new_cohort = STDIN.gets.chomp.downcase.to_sym
+  to_edit = to_edit[0]
+  to_edit[:cohort] = new_cohort
+  puts "Success! #{name}'s cohort has been updated to #{new_cohort}"
 end
 
 #Alternative printing methods
