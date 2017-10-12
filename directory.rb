@@ -170,15 +170,10 @@ end
 #Method to allow the user to remove a student from the directory
 def remove_student
   print_by_cohort
-  puts "Which student would you like to remove? Please type in that student's number from the list above"
+  puts "Which student would you like to remove? Please type in that student's name"
   student_to_remove = STDIN.gets.chomp
-  loop do
-    break if student_to_remove.to_i > 0 && student_to_remove.to_i <= @students.length
-    puts "Sorry, I'm not sure what you meant by that. Please type in the number of the student you wish to delete"
-    student_to_remove = STDIN.gets.chomp
-  end
-  @students.delete_at((student_to_remove.to_i) - 1)
-  puts "Student deleted!"
+  @students.delete_if {|student| student.fetch(:name) == student_to_remove}
+  puts "#{student_to_remove} has been deleted from the directory!"
 end
 
 #Alternative printing methods
