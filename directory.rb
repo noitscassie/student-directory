@@ -30,7 +30,9 @@ require 'csv'
 #Top-level menu method
 def interactive_menu
   puts "Loading program..."
+  sleep(1)
   try_load_students
+  puts "Welcome to Villain's Academy!"
   loop do
     print_menu
     process STDIN.gets.chomp
@@ -71,7 +73,7 @@ def input_students
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   while !name.empty? do
-    puts "And what cohort are they in?"
+    puts "And what cohort will #{name} in?"
     cohort = STDIN.gets.chomp
     while !(@possible_cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
@@ -191,7 +193,7 @@ def edit_student
   puts "Which student would you like to edit? Please type in that student's name from the list above"
   student_to_edit = check
   puts "Selected #{student_to_edit}"
-  puts "Would you like to edit their name or their cohort?"
+  puts "Would you like to edit #{student_to_edit}'s name or cohort?"
   puts "Enter 1 to edit their name, and 2 to edit their cohort"
   user_choice = STDIN.gets.chomp
   loop do
@@ -202,7 +204,7 @@ def edit_student
       edit_cohort student_to_edit
       break
     else
-      puts "Sorry, that was not a valid selection. Enter 1 to edit a student's name, and 2 to edit their cohort"
+      puts "Sorry, that was not a valid selection. Enter 1 to edit #{student_to_edit}'s name, and 2 to edit their cohort"
       user_choice = STDIN.gets.chomp
     end
   end
@@ -211,7 +213,7 @@ end
 #Method to edit a student's name
 def edit_name name
   to_edit = @students.select { |s| s[:name] == name}
-  puts "And what would you like to rename this student to?"
+  puts "And what would you like to rename #{name} to?"
   new_name = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   to_edit = to_edit[0]
   to_edit[:name] = new_name
@@ -221,7 +223,7 @@ end
 #Method to edit a student's cohort
 def edit_cohort name
   to_edit = @students.select { |s| s[:name] == name}
-  puts "And what which cohort would you like to change this student to? Please type enter the name of a month"
+  puts "And what which cohort would you like to move #{name} to? Please type enter the name of a month"
   new_cohort = STDIN.gets.chomp.downcase.to_sym
   to_edit = to_edit[0]
   to_edit[:cohort] = new_cohort
