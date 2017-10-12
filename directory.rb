@@ -69,9 +69,9 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp
+  name = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   while !name.empty? do
-    puts "And what cohort are tzhey in?"
+    puts "And what cohort are they in?"
     cohort = STDIN.gets.chomp
     while !(@possible_cohorts.include? cohort.downcase.to_sym)
       puts "Sorry, that was not a valid option. Please select a month as the cohort you will be joining."
@@ -79,7 +79,7 @@ def input_students
     end
     add_student(name, cohort)
     puts "Now we have #{@students.count} students"
-    name = STDIN.gets.chomp
+    name = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   end
   @students
 end
@@ -162,21 +162,16 @@ def csv_to_array csv_file
   end
 end
 
-#Method to allow the user to edit a student's name or cohort
-def edit_student
-  puts "Which student would you like to edit?"
-end
-
 #Method to check if a student exists in the directory
 def check
-  student = STDIN.gets.chomp
+  student = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   loop do
     if !(@students.any? { |s| s[:name] == student})
       puts "Sorry, #{student} is not in the directory. Please re-enter the name of the student"
     else
       break
     end
-    student = STDIN.gets.chomp
+    student = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   end
   return student
 end
@@ -217,7 +212,7 @@ end
 def edit_name name
   to_edit = @students.select { |s| s[:name] == name}
   puts "And what would you like to rename this student to?"
-  new_name = STDIN.gets.chomp
+  new_name = STDIN.gets.chomp.split.map(&:capitalize).join(' ')
   to_edit = to_edit[0]
   to_edit[:name] = new_name
   puts "Success! #{name}'s name has been updated to #{new_name}"
